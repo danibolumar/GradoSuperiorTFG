@@ -1,0 +1,50 @@
+﻿<mah:MetroWindow x:Class="PoliGest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PoliGest"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        Title="PoliGest" Height="500" Width="800">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" HorizontalAlignment="Left" x:Name="menu" VerticalAlignment="Top" BorderBrush="LightBlue" Style="{StaticResource MaterialDesignMenu}">
+            <MenuItem Header="Reservas" Padding="20,5,10,0" FontSize="15" FontStyle="Italic" FontWeight="UltraBold"  Foreground="#2A6272">
+                <MenuItem Header="Todas las Reservas" x:Name="todasReservas" Click="todasReservas_Click"/>
+                <MenuItem Header="Reservas Activas" x:Name="reservasActivas" Click="reservasActivas_Click"/>
+                <MenuItem Header="Realizar Reserva" x:Name="realizaReserva" Click="realizaReserva_Click"/>
+            </MenuItem>
+            <MenuItem Header="Usuarios" x:Name="usuarios" Padding="10,5"  FontSize="15" FontStyle="Italic" FontWeight="UltraBold"  Foreground="#2A6272">
+                <MenuItem Header="Lista de Usuarios" x:Name="listaUsers" Click="listaUsers_Click"/>
+                <MenuItem Header="Crear Usuario" x:Name="crearUser" Click="crearUser_Click"/>
+            </MenuItem>
+            <MenuItem Header="Administración" x:Name="administracion" Padding="10,5"  FontSize="15" FontStyle="Italic" FontWeight="UltraBold"  Foreground="#2A6272">
+                <MenuItem Header="Realizar Informes" x:Name="realizarInformes">
+                    <MenuItem Header="Informe por pista y socios" x:Name="informePistaSocios" Click="informePistaSocios_Click"/>
+                    <MenuItem Header="Informe resumen anual" x:Name="informeResumenAnual" Click="informeResumenAnual_Click"/>
+                </MenuItem>
+                <MenuItem Header="Ver Gráficos" x:Name="verGraficos" Click="verGraficos_Click"/>
+                <MenuItem Header="Crear Rol" x:Name="crearRoles" Click="crearRoles_Click"/>
+                <MenuItem Header="Crear Permiso" x:Name="crearPermiso" Click="crearPermiso_Click"/>
+                <MenuItem Header="Modificar Roles y Permisos" x:Name="modificarRolPerm" Click="modificarRolPerm_Click"/>
+            </MenuItem>
+            <MenuItem Header="Instalaciones" Padding="10,5"  FontSize="15" FontStyle="Italic" FontWeight="UltraBold"  Foreground="#2A6272" x:Name="instalacionesMenu">
+                <MenuItem Header="Crear Tipo Instalacion" x:Name="crearTipoInstalacion" Click="crearTipoInstalacion_Click"/>
+                <MenuItem Header="Crear Instalacion" x:Name="crearInstalacion" Click="crearInstalacion_Click"/>
+                <MenuItem Header="Administrar Instalaciones" x:Name="administrarInstalaciones" Click="administrarInstalaciones_Click"/>
+                <MenuItem Header="Administrar Tipo Instalaciones" x:Name="administrarTipoInstalaciones" Click="administrarTipoInstalaciones_Click"/>
+            </MenuItem>
+            <MenuItem Header="Configuración" Padding="10,5"  FontSize="15" FontStyle="Italic" FontWeight="UltraBold"  Foreground="#2A6272">
+                <MenuItem Header="Mi Perfil" x:Name="miPerfil" Click="miPerfil_Click"/>
+                <MenuItem Header="Cerrar Sesion" x:Name="cerrarSesion" Click="cerrarSesion_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <Grid x:Name="cargarControlUsu">
+            
+        </Grid>
+        
+    </DockPanel>
+</mah:MetroWindow>

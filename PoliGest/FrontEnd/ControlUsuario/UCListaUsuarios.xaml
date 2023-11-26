@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="PoliGest.FrontEnd.ControlUsuario.UCListaUsuarios"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PoliGest.FrontEnd.ControlUsuario"
+             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel>
+        <TextBlock x:Name="titulo" Text="Lista De Usuarios" DockPanel.Dock="Top" FontSize="20" FontStyle="Italic" FontStretch="UltraExpanded" FontWeight="UltraBold" HorizontalAlignment="Center" Margin="0,20,0,15"/>
+
+            <Grid Grid.Row="1" DockPanel.Dock="Left" Width="200">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+            <ComboBox x:Name="comboFiltroRol" Margin="0,0,0,20"
+                      ItemsSource="{Binding listaRol}" DisplayMemberPath="nombre" SelectionChanged="comboFiltroRol_SelectionChanged"
+                      SelectedItem="{Binding rolSeleccionado}" Style="{StaticResource MaterialDesignComboBox}"
+                      material:HintAssist.Hint="Selecciona un rol" HorizontalAlignment="Center" Width="150"/>
+
+            <TextBox x:Name="txtNombre" Grid.Row="1" SelectionChanged="txtNombre_SelectionChanged"  Margin="0,20,0,0"
+                     Text="{Binding textoNombre, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Width="150" HorizontalAlignment="Center" material:HintAssist.Hint="Nombre usuario" />
+
+            <TextBox x:Name="txtDni" Grid.Row="2" SelectionChanged="txtDni_SelectionChanged"  Margin="0,20,0,0"
+                     Text="{Binding textoDni, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Width="150" HorizontalAlignment="Center" material:HintAssist.Hint="DNIE / NIE" />
+
+            <Button x:Name="btnQuitarFiltro" Grid.Row="3" Content="QUITAR FILTRO" HorizontalAlignment="Center"  Margin="0,20,0,0"
+                    Style="{StaticResource MaterialDesignFlatButton}" Click="btnQuitarFiltro_Click" />
+            </Grid>
+        <Grid>
+            <DataGrid AutoGenerateColumns="False" ColumnWidth="*" CanUserAddRows="False"
+                      ItemsSource="{Binding listaUsuario}" x:Name="dgListaUsuarios" MouseDoubleClick="dgListaUsuarios_MouseDoubleClick">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="NOMBRE" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding nombre}"/>
+                                    <TextBlock Text=", "/>
+                                    <TextBlock Text="{Binding apellido1}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="TELEFONO" Binding="{Binding telefono}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="DNI/NIE" Binding="{Binding dni}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="ROL" Binding="{Binding rol.nombre}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="FECHA ALTA" Binding="{Binding fecha_alta, StringFormat=dd/MM/yyyy}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="FECHA BAJA" Binding="{Binding fecha_baja, StringFormat=dd/MM/yyyy}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="RESERVAS" FontWeight="Bold" Margin="10"/>
+                            <Separator VerticalAlignment="Bottom" />
+                            <DataGrid Grid.Row="1" ItemsSource="{Binding reserva}" AutoGenerateColumns="False" 
+                                      GridLinesVisibility="Horizontal">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="NÚMERO DE SERIE" Binding="{Binding idreserva}" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="FECHA RESERVA" Binding="{Binding fecha_reserva, StringFormat=dd/MM/yyyy}" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="HORA INICION" Binding="{Binding hora_inicio}" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="HORA FIN" Binding="{Binding hora_fin}" IsReadOnly="True"/>
+                                    <DataGridCheckBoxColumn Header="PAGADO" Binding="{Binding pagado}" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="INSTALACION" Binding="{Binding instalacion.nombre}" IsReadOnly="True"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </DataTemplate>
+
+                </DataGrid.RowDetailsTemplate>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+</UserControl>

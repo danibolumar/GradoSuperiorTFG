@@ -1,0 +1,53 @@
+﻿<mah:MetroWindow x:Class="PoliGest.FrontEnd.Dialogos.DiagRol"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PoliGest.FrontEnd.Dialogos"
+         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        ResizeMode="NoResize"
+        ShowMaxRestoreButton="False"
+        ShowTitleBar="False"
+        mc:Ignorable="d"
+        SizeToContent="Height"
+        Title="DiagRol" Width="700">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Crear Nuevo Rol" x:Name="titulo" FontSize="20" FontStyle="Italic" FontStretch="UltraExpanded" FontWeight="UltraBold" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+        <TextBox x:Name="nombreRol" Grid.Row="1" Margin="0,10,0,10" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintTextBox}" material:HintAssist.Hint="Nombre de rol"
+                 Text="{Binding rolSeleccionado.nombre, NotifyOnValidationError=True, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Width="400"/>
+
+        <DataGrid AutoGenerateColumns="False" ColumnWidth="*" CanUserAddRows="False"
+                      ItemsSource="{Binding listaPermisos}" HorizontalAlignment="Center"
+                      x:Name="dgTablaPermiso" Grid.Row="2">
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="DESCRIPCION" Binding="{Binding descripcion}" IsReadOnly="True"/>
+                <DataGridTemplateColumn Header="SELECCIONADOS">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <CheckBox Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <WrapPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" Margin="0,20,20,10" x:Name="btnsNU">
+            <Button x:Name="aceptarNR" Content="GUARDAR" Click="aceptarNS_Click" Background="LightBlue" Width="200" />
+            <Button x:Name="btnCancelar" Content="CANCELAR" Click="btnCancelar_Click" Margin="20,0,0,0" Background="DarkGray" Width="200"/>
+        </WrapPanel>
+    </Grid>
+</mah:MetroWindow>

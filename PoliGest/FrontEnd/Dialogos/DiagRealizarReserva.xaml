@@ -1,0 +1,60 @@
+﻿<mah:MetroWindow x:Class="PoliGest.FrontEnd.Dialogos.DiagRealizarReserva"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PoliGest.FrontEnd.Dialogos"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        ResizeMode="NoResize"
+        ShowMaxRestoreButton="False"
+        ShowTitleBar="False"
+        SizeToContent="Height"
+        mc:Ignorable="d"
+        Title="DiagRealizarReserva" Width="800">
+    <Grid Margin="20" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text=" Realizar Nueva Reserva" Grid.ColumnSpan="2" x:Name="titulo" FontSize="20" FontStyle="Italic" FontStretch="UltraExpanded" FontWeight="UltraBold" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+        <DatePicker Grid.Row="1" x:Name="fechaReserva" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" material:HintAssist.Hint="Elige fecha de reserva" Margin="0,0,20,0"
+                    SelectedDateChanged="fechaReserva_SelectedDateChanged"/>
+
+        <ComboBox x:Name="comboTipos" Grid.Row="1" Grid.Column="1" Margin="10,15,0,0" ItemsSource="{Binding listaTipoInstalaciones}" DisplayMemberPath="descripcion"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" material:HintAssist.Hint="Selecciona El tipo de Instalacion"
+                  SelectedItem="{Binding tipoInstalacionSeleccionado}" SelectionChanged="comboTipos_SelectionChanged"/>
+
+        <ComboBox x:Name="comboHoraInicial" Grid.Row="2" Margin="0,15,20,0" ItemsSource="{Binding listaHoraInicio}" HorizontalAlignment="Left"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" material:HintAssist.Hint="Hora de inicio"
+                  SelectedItem="{Binding nuevaReserva.hora_inicio, NotifyOnValidationError=True, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectionChanged="comboHoraInicial_SelectionChanged"/>
+
+        <ComboBox x:Name="comboHoraFin" Grid.Row="2" Margin="0,15,20,0" ItemsSource="{Binding listaHoraInicio}" HorizontalAlignment="Right"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" material:HintAssist.Hint="Hora Fin"
+                  SelectedItem="{Binding nuevaReserva.hora_fin, NotifyOnValidationError=True, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectionChanged="comboHoraFin_SelectionChanged"/>
+
+        <TextBlock x:Name="precioTotal" Grid.Row="2" Grid.Column="1" Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="20,15,0,0"/>
+
+        <TextBlock x:Name="instalacionSel" Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+
+        <StackPanel Grid.Row="4" Margin="20,20,20,10" x:Name="botones" IsEnabled="False" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+
+              
+                <Button x:Name="aceptar" Content="ACEPTAR" Click="aceptar_Click" Background="LightBlue" Width="200"  Margin="0,15,20,0" VerticalAlignment="Top"/>
+                <Button x:Name="btnCancelar" Content="CANCELAR" Click="btnCancelar_Click" Margin="0,15,20,0" Background="DarkGray" Width="200" Height="20" />
+     
+
+
+        </StackPanel>
+    </Grid>
+</mah:MetroWindow>

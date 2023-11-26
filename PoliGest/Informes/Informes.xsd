@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Informes" targetNamespace="http://tempuri.org/Informes.xsd" xmlns:mstns="http://tempuri.org/Informes.xsd" xmlns="http://tempuri.org/Informes.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="instalaciones_deportivasConnectionInforme" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="instalaciones_deportivasConnectionInforme (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.PoliGest.Properties.Settings.GlobalReference.Default.instalaciones_deportivasConnectionInforme" Provider="MySql.Data.MySqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tipo_instalacionTableAdapter" GeneratorDataComponentClassName="tipo_instalacionTableAdapter" Name="tipo_instalacion" UserDataComponentName="tipo_instalacionTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="instalaciones_deportivasConnectionInforme (Settings)" DbObjectName="instalaciones_deportivas.tipo_instalacion" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select count(*) as NumeroReservas, t.descripcion as TipoInstalacion from reserva r, instalacion i, tipo_instalacion t
+where r.instalacion_idinstalacion = i.idinstalacion and i.idtipo = t.idtipo 
+and month(r.fecha_reserva) &gt;= month(sysdate()) and year(r.fecha_reserva) &gt;= year(sysdate())-1 group by t.descripcion</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="NumeroReservas" DataSetColumn="NumeroReservas" />
+              <Mapping SourceColumn="TipoInstalacion" DataSetColumn="TipoInstalacion" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ReservaPorSocioTableAdapter" GeneratorDataComponentClassName="ReservaPorSocioTableAdapter" Name="ReservaPorSocio" UserDataComponentName="ReservaPorSocioTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="instalaciones_deportivasConnectionInforme (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select u.nombre, u.apellido1, u.dni, count(*), t.descripcion from reserva r, tipo_instalacion t, instalacion i, socios s, usuario u
+where r.instalacion_idinstalacion = i.idinstalacion and i.idtipo = t.idtipo
+and r.usuario_idusuario = u.idusuario group by t.descripcion, u.dni
+</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="nombre" DataSetColumn="nombre" />
+              <Mapping SourceColumn="apellido1" DataSetColumn="apellido1" />
+              <Mapping SourceColumn="dni" DataSetColumn="dni" />
+              <Mapping SourceColumn="count(*)" DataSetColumn="count(*)" />
+              <Mapping SourceColumn="descripcion" DataSetColumn="descripcion" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="Informes" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="Informes" msprop:Generator_UserDSName="Informes">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="tipo_instalacion" msprop:Generator_TableClassName="tipo_instalacionDataTable" msprop:Generator_TableVarName="tabletipo_instalacion" msprop:Generator_RowChangedName="tipo_instalacionRowChanged" msprop:Generator_TablePropName="tipo_instalacion" msprop:Generator_RowDeletingName="tipo_instalacionRowDeleting" msprop:Generator_RowChangingName="tipo_instalacionRowChanging" msprop:Generator_RowEvHandlerName="tipo_instalacionRowChangeEventHandler" msprop:Generator_RowDeletedName="tipo_instalacionRowDeleted" msprop:Generator_RowClassName="tipo_instalacionRow" msprop:Generator_UserTableName="tipo_instalacion" msprop:Generator_RowEvArgName="tipo_instalacionRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="NumeroReservas" msprop:Generator_ColumnVarNameInTable="columnNumeroReservas" msprop:Generator_ColumnPropNameInRow="NumeroReservas" msprop:Generator_ColumnPropNameInTable="NumeroReservasColumn" msprop:Generator_UserColumnName="NumeroReservas" type="xs:long" />
+              <xs:element name="TipoInstalacion" msprop:Generator_ColumnVarNameInTable="columnTipoInstalacion" msprop:Generator_ColumnPropNameInRow="TipoInstalacion" msprop:Generator_ColumnPropNameInTable="TipoInstalacionColumn" msprop:Generator_UserColumnName="TipoInstalacion">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="80" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ReservaPorSocio" msprop:Generator_TableClassName="ReservaPorSocioDataTable" msprop:Generator_TableVarName="tableReservaPorSocio" msprop:Generator_TablePropName="ReservaPorSocio" msprop:Generator_RowDeletingName="ReservaPorSocioRowDeleting" msprop:Generator_RowChangingName="ReservaPorSocioRowChanging" msprop:Generator_RowEvHandlerName="ReservaPorSocioRowChangeEventHandler" msprop:Generator_RowDeletedName="ReservaPorSocioRowDeleted" msprop:Generator_UserTableName="ReservaPorSocio" msprop:Generator_RowChangedName="ReservaPorSocioRowChanged" msprop:Generator_RowEvArgName="ReservaPorSocioRowChangeEvent" msprop:Generator_RowClassName="ReservaPorSocioRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nombre" msprop:Generator_ColumnVarNameInTable="columnnombre" msprop:Generator_ColumnPropNameInRow="nombre" msprop:Generator_ColumnPropNameInTable="nombreColumn" msprop:Generator_UserColumnName="nombre">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="45" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="apellido1" msprop:Generator_ColumnVarNameInTable="columnapellido1" msprop:Generator_ColumnPropNameInRow="apellido1" msprop:Generator_ColumnPropNameInTable="apellido1Column" msprop:Generator_UserColumnName="apellido1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="45" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="dni" msprop:Generator_ColumnVarNameInTable="columndni" msprop:Generator_ColumnPropNameInRow="dni" msprop:Generator_ColumnPropNameInTable="dniColumn" msprop:Generator_UserColumnName="dni">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="45" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="count_x0028__x002A__x0029_" msprop:Generator_ColumnVarNameInTable="_columncount___" msprop:Generator_ColumnPropNameInRow="_count___" msprop:Generator_ColumnPropNameInTable="_count___Column" msprop:Generator_UserColumnName="count(*)" type="xs:long" />
+              <xs:element name="descripcion" msprop:Generator_ColumnVarNameInTable="columndescripcion" msprop:Generator_ColumnPropNameInRow="descripcion" msprop:Generator_ColumnPropNameInTable="descripcionColumn" msprop:Generator_UserColumnName="descripcion">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="80" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

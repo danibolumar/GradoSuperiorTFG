@@ -1,0 +1,699 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ModeloGestionPolideportiva.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="dia">
+          <Key>
+            <PropertyRef Name="iddia" />
+          </Key>
+          <Property Name="iddia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="horario">
+          <Key>
+            <PropertyRef Name="idhorario" />
+          </Key>
+          <Property Name="idhorario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hora_inicio" Type="time" Precision="0" Nullable="false" />
+          <Property Name="hora_fin" Type="time" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="instalacion">
+          <Key>
+            <PropertyRef Name="idinstalacion" />
+          </Key>
+          <Property Name="idinstalacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="insalacion_cerrada" Type="tinyint" />
+          <Property Name="idtipo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="instalaciones_tiene_horario">
+          <Key>
+            <PropertyRef Name="instalaciones_idinstalaciones" />
+            <PropertyRef Name="dia_iddia" />
+            <PropertyRef Name="horario_idhorario" />
+          </Key>
+          <Property Name="instalaciones_idinstalaciones" Type="int" Nullable="false" />
+          <Property Name="dia_iddia" Type="int" Nullable="false" />
+          <Property Name="horario_idhorario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="permisos">
+          <Key>
+            <PropertyRef Name="idpermisos" />
+          </Key>
+          <Property Name="idpermisos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reserva">
+          <Key>
+            <PropertyRef Name="idreserva" />
+          </Key>
+          <Property Name="idreserva" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_reserva" Type="date" Nullable="false" />
+          <Property Name="hora_inicio" Type="time" Precision="0" Nullable="false" />
+          <Property Name="hora_fin" Type="time" Precision="0" Nullable="false" />
+          <Property Name="precio" Type="double" Nullable="false" />
+          <Property Name="no_presentado" Type="tinyint" Nullable="false" />
+          <Property Name="anulado" Type="tinyint" Nullable="false" />
+          <Property Name="pagado" Type="tinyint" Nullable="false" />
+          <Property Name="instalacion_idinstalacion" Type="int" Nullable="false" />
+          <Property Name="usuario_idusuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rol">
+          <Key>
+            <PropertyRef Name="idrol" />
+          </Key>
+          <Property Name="idrol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rol_permisos">
+          <Key>
+            <PropertyRef Name="rol_idrol" />
+            <PropertyRef Name="permisos_idpermisos" />
+          </Key>
+          <Property Name="rol_idrol" Type="int" Nullable="false" />
+          <Property Name="permisos_idpermisos" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="socios">
+          <Key>
+            <PropertyRef Name="idsocios" />
+          </Key>
+          <Property Name="idsocios" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="observaciones" Type="varchar" MaxLength="45" />
+          <Property Name="penalizado" Type="tinyint" />
+          <Property Name="fecha_fin_penalizacion" Type="date" />
+          <Property Name="usuario_idusuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tipo_instalacion">
+          <Key>
+            <PropertyRef Name="idtipo" />
+          </Key>
+          <Property Name="idtipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="tiempo_max" Type="int" Nullable="false" />
+          <Property Name="precio_hora" Type="double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="idusuario" />
+          </Key>
+          <Property Name="idusuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="apellido1" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="apellido2" Type="varchar" MaxLength="45" />
+          <Property Name="contraseña" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="dni" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="cuenta_bancaria" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="fecha_alta" Type="date" Nullable="false" />
+          <Property Name="fecha_baja" Type="date" />
+          <Property Name="rol_idrol" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_instalaciones_has_horario_horario1">
+          <End Role="horario" Type="Self.horario" Multiplicity="1" />
+          <End Role="instalaciones_tiene_horario" Type="Self.instalaciones_tiene_horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="horario">
+              <PropertyRef Name="idhorario" />
+            </Principal>
+            <Dependent Role="instalaciones_tiene_horario">
+              <PropertyRef Name="horario_idhorario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_instalaciones_has_horario_instalaciones1">
+          <End Role="tipo_instalacion" Type="Self.tipo_instalacion" Multiplicity="1" />
+          <End Role="instalaciones_tiene_horario" Type="Self.instalaciones_tiene_horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_instalacion">
+              <PropertyRef Name="idtipo" />
+            </Principal>
+            <Dependent Role="instalaciones_tiene_horario">
+              <PropertyRef Name="instalaciones_idinstalaciones" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_instalaciones_tiene_horario_dia1">
+          <End Role="dia" Type="Self.dia" Multiplicity="1" />
+          <End Role="instalaciones_tiene_horario" Type="Self.instalaciones_tiene_horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dia">
+              <PropertyRef Name="iddia" />
+            </Principal>
+            <Dependent Role="instalaciones_tiene_horario">
+              <PropertyRef Name="dia_iddia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_permisos_has_rol_permisos1">
+          <End Role="permisos" Type="Self.permisos" Multiplicity="1" />
+          <End Role="rol_permisos" Type="Self.rol_permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="permisos">
+              <PropertyRef Name="idpermisos" />
+            </Principal>
+            <Dependent Role="rol_permisos">
+              <PropertyRef Name="permisos_idpermisos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_permisos_has_rol_rol1">
+          <End Role="rol" Type="Self.rol" Multiplicity="1" />
+          <End Role="rol_permisos" Type="Self.rol_permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="idrol" />
+            </Principal>
+            <Dependent Role="rol_permisos">
+              <PropertyRef Name="rol_idrol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PISTA_instalaciones1">
+          <End Role="tipo_instalacion" Type="Self.tipo_instalacion" Multiplicity="1" />
+          <End Role="instalacion" Type="Self.instalacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_instalacion">
+              <PropertyRef Name="idtipo" />
+            </Principal>
+            <Dependent Role="instalacion">
+              <PropertyRef Name="idtipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_reserva_PISTA1">
+          <End Role="instalacion" Type="Self.instalacion" Multiplicity="1" />
+          <End Role="reserva" Type="Self.reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="instalacion">
+              <PropertyRef Name="idinstalacion" />
+            </Principal>
+            <Dependent Role="reserva">
+              <PropertyRef Name="instalacion_idinstalacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_reserva_USUARIO1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="reserva" Type="Self.reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idusuario" />
+            </Principal>
+            <Dependent Role="reserva">
+              <PropertyRef Name="usuario_idusuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_socios_usuario1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="socios" Type="Self.socios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idusuario" />
+            </Principal>
+            <Dependent Role="socios">
+              <PropertyRef Name="usuario_idusuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_USUARIO_rol1">
+          <End Role="rol" Type="Self.rol" Multiplicity="1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="idrol" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="rol_idrol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModeloGestionPolideportivaStoreContainer">
+          <EntitySet Name="dia" EntityType="Self.dia" Schema="instalaciones_deportivas" store:Type="Tables" />
+          <EntitySet Name="horario" EntityType="Self.horario" Schema="instalaciones_deportivas" store:Type="Tables" />
+          <EntitySet Name="instalacion" EntityType="Self.instalacion" Schema="instalaciones_deportivas" store:Type="Tables" />
+          <EntitySet Name="instalaciones_tiene_horario" EntityType="Self.instalaciones_tiene_horario" Schema="instalaciones_deportivas" store:Type="Tables" />
+          <EntitySet Name="permisos" EntityType="Self.permisos" Schema="instalaciones_deportivas" store:Type="Tables" />
+          <EntitySet Name="reserva" EntityType="Self.reserva" Schema="instalaciones_deportivas" store:Type="Tables" />
+          <EntitySet Name="rol" EntityType="Self.rol" Schema="instalaciones_deportivas" store:Type="Tables" />
+          <EntitySet Name="rol_permisos" EntityType="Self.rol_permisos" Schema="instalaciones_deportivas" store:Type="Tables" />
+          <EntitySet Name="socios" EntityType="Self.socios" Schema="instalaciones_deportivas" store:Type="Tables" />
+          <EntitySet Name="tipo_instalacion" EntityType="Self.tipo_instalacion" Schema="instalaciones_deportivas" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="instalaciones_deportivas" store:Type="Tables" />
+          <AssociationSet Name="fk_instalaciones_has_horario_horario1" Association="Self.fk_instalaciones_has_horario_horario1">
+            <End Role="horario" EntitySet="horario" />
+            <End Role="instalaciones_tiene_horario" EntitySet="instalaciones_tiene_horario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_instalaciones_has_horario_instalaciones1" Association="Self.fk_instalaciones_has_horario_instalaciones1">
+            <End Role="tipo_instalacion" EntitySet="tipo_instalacion" />
+            <End Role="instalaciones_tiene_horario" EntitySet="instalaciones_tiene_horario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_instalaciones_tiene_horario_dia1" Association="Self.fk_instalaciones_tiene_horario_dia1">
+            <End Role="dia" EntitySet="dia" />
+            <End Role="instalaciones_tiene_horario" EntitySet="instalaciones_tiene_horario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_permisos_has_rol_permisos1" Association="Self.fk_permisos_has_rol_permisos1">
+            <End Role="permisos" EntitySet="permisos" />
+            <End Role="rol_permisos" EntitySet="rol_permisos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_permisos_has_rol_rol1" Association="Self.fk_permisos_has_rol_rol1">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="rol_permisos" EntitySet="rol_permisos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PISTA_instalaciones1" Association="Self.fk_PISTA_instalaciones1">
+            <End Role="tipo_instalacion" EntitySet="tipo_instalacion" />
+            <End Role="instalacion" EntitySet="instalacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_reserva_PISTA1" Association="Self.fk_reserva_PISTA1">
+            <End Role="instalacion" EntitySet="instalacion" />
+            <End Role="reserva" EntitySet="reserva" />
+          </AssociationSet>
+          <AssociationSet Name="fk_reserva_USUARIO1" Association="Self.fk_reserva_USUARIO1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="reserva" EntitySet="reserva" />
+          </AssociationSet>
+          <AssociationSet Name="fk_socios_usuario1" Association="Self.fk_socios_usuario1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="socios" EntitySet="socios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_USUARIO_rol1" Association="Self.fk_USUARIO_rol1">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ModeloGestionPolideportiva" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="dia">
+          <Key>
+            <PropertyRef Name="iddia" />
+          </Key>
+          <Property Name="iddia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="instalaciones_tiene_horario" Relationship="Self.fk_instalaciones_tiene_horario_dia1" FromRole="dia" ToRole="instalaciones_tiene_horario" />
+        </EntityType>
+        <EntityType Name="horario">
+          <Key>
+            <PropertyRef Name="idhorario" />
+          </Key>
+          <Property Name="idhorario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hora_inicio" Type="Time" Nullable="false" />
+          <Property Name="hora_fin" Type="Time" Nullable="false" />
+          <NavigationProperty Name="instalaciones_tiene_horario" Relationship="Self.fk_instalaciones_has_horario_horario1" FromRole="horario" ToRole="instalaciones_tiene_horario" />
+        </EntityType>
+        <EntityType Name="instalacion">
+          <Key>
+            <PropertyRef Name="idinstalacion" />
+          </Key>
+          <Property Name="idinstalacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="insalacion_cerrada" Type="SByte" />
+          <Property Name="idtipo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tipo_instalacion" Relationship="Self.fk_PISTA_instalaciones1" FromRole="instalacion" ToRole="tipo_instalacion" />
+          <NavigationProperty Name="reserva" Relationship="Self.fk_reserva_PISTA1" FromRole="instalacion" ToRole="reserva" />
+        </EntityType>
+        <EntityType Name="instalaciones_tiene_horario">
+          <Key>
+            <PropertyRef Name="instalaciones_idinstalaciones" />
+            <PropertyRef Name="dia_iddia" />
+            <PropertyRef Name="horario_idhorario" />
+          </Key>
+          <Property Name="instalaciones_idinstalaciones" Type="Int32" Nullable="false" />
+          <Property Name="dia_iddia" Type="Int32" Nullable="false" />
+          <Property Name="horario_idhorario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="dia" Relationship="Self.fk_instalaciones_tiene_horario_dia1" FromRole="instalaciones_tiene_horario" ToRole="dia" />
+          <NavigationProperty Name="horario" Relationship="Self.fk_instalaciones_has_horario_horario1" FromRole="instalaciones_tiene_horario" ToRole="horario" />
+          <NavigationProperty Name="tipo_instalacion" Relationship="Self.fk_instalaciones_has_horario_instalaciones1" FromRole="instalaciones_tiene_horario" ToRole="tipo_instalacion" />
+        </EntityType>
+        <EntityType Name="permisos">
+          <Key>
+            <PropertyRef Name="idpermisos" />
+          </Key>
+          <Property Name="idpermisos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="rol" Relationship="Self.rol_permisos" FromRole="permisos" ToRole="rol" />
+        </EntityType>
+        <EntityType Name="reserva">
+          <Key>
+            <PropertyRef Name="idreserva" />
+          </Key>
+          <Property Name="idreserva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_reserva" Type="DateTime" Nullable="false" />
+          <Property Name="hora_inicio" Type="Time" Nullable="false" />
+          <Property Name="hora_fin" Type="Time" Nullable="false" />
+          <Property Name="precio" Type="Double" Nullable="false" />
+          <Property Name="no_presentado" Type="SByte" Nullable="false" />
+          <Property Name="anulado" Type="SByte" Nullable="false" />
+          <Property Name="pagado" Type="SByte" Nullable="false" />
+          <Property Name="instalacion_idinstalacion" Type="Int32" Nullable="false" />
+          <Property Name="usuario_idusuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="instalacion" Relationship="Self.fk_reserva_PISTA1" FromRole="reserva" ToRole="instalacion" />
+          <NavigationProperty Name="usuario" Relationship="Self.fk_reserva_USUARIO1" FromRole="reserva" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="rol">
+          <Key>
+            <PropertyRef Name="idrol" />
+          </Key>
+          <Property Name="idrol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="usuario" Relationship="Self.fk_USUARIO_rol1" FromRole="rol" ToRole="usuario" />
+          <NavigationProperty Name="permisos" Relationship="Self.rol_permisos" FromRole="rol" ToRole="permisos" />
+        </EntityType>
+        <EntityType Name="socios">
+          <Key>
+            <PropertyRef Name="idsocios" />
+          </Key>
+          <Property Name="idsocios" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="observaciones" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="penalizado" Type="SByte" />
+          <Property Name="fecha_fin_penalizacion" Type="DateTime" />
+          <Property Name="usuario_idusuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="usuario" Relationship="Self.fk_socios_usuario1" FromRole="socios" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="tipo_instalacion">
+          <Key>
+            <PropertyRef Name="idtipo" />
+          </Key>
+          <Property Name="idtipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tiempo_max" Type="Int32" Nullable="false" />
+          <Property Name="precio_hora" Type="Double" Nullable="false" />
+          <NavigationProperty Name="instalacion" Relationship="Self.fk_PISTA_instalaciones1" FromRole="tipo_instalacion" ToRole="instalacion" />
+          <NavigationProperty Name="instalaciones_tiene_horario" Relationship="Self.fk_instalaciones_has_horario_instalaciones1" FromRole="tipo_instalacion" ToRole="instalaciones_tiene_horario" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="idusuario" />
+          </Key>
+          <Property Name="idusuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido1" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido2" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="contraseña" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dni" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cuenta_bancaria" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_alta" Type="DateTime" Nullable="false" />
+          <Property Name="fecha_baja" Type="DateTime" />
+          <Property Name="rol_idrol" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="reserva" Relationship="Self.fk_reserva_USUARIO1" FromRole="usuario" ToRole="reserva" />
+          <NavigationProperty Name="rol" Relationship="Self.fk_USUARIO_rol1" FromRole="usuario" ToRole="rol" />
+          <NavigationProperty Name="socios" Relationship="Self.fk_socios_usuario1" FromRole="usuario" ToRole="socios" />
+        </EntityType>
+        <Association Name="fk_instalaciones_tiene_horario_dia1">
+          <End Role="dia" Type="Self.dia" Multiplicity="1" />
+          <End Role="instalaciones_tiene_horario" Type="Self.instalaciones_tiene_horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dia">
+              <PropertyRef Name="iddia" />
+            </Principal>
+            <Dependent Role="instalaciones_tiene_horario">
+              <PropertyRef Name="dia_iddia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_instalaciones_has_horario_horario1">
+          <End Role="horario" Type="Self.horario" Multiplicity="1" />
+          <End Role="instalaciones_tiene_horario" Type="Self.instalaciones_tiene_horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="horario">
+              <PropertyRef Name="idhorario" />
+            </Principal>
+            <Dependent Role="instalaciones_tiene_horario">
+              <PropertyRef Name="horario_idhorario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PISTA_instalaciones1">
+          <End Role="tipo_instalacion" Type="Self.tipo_instalacion" Multiplicity="1" />
+          <End Role="instalacion" Type="Self.instalacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_instalacion">
+              <PropertyRef Name="idtipo" />
+            </Principal>
+            <Dependent Role="instalacion">
+              <PropertyRef Name="idtipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_reserva_PISTA1">
+          <End Role="instalacion" Type="Self.instalacion" Multiplicity="1" />
+          <End Role="reserva" Type="Self.reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="instalacion">
+              <PropertyRef Name="idinstalacion" />
+            </Principal>
+            <Dependent Role="reserva">
+              <PropertyRef Name="instalacion_idinstalacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_instalaciones_has_horario_instalaciones1">
+          <End Role="tipo_instalacion" Type="Self.tipo_instalacion" Multiplicity="1" />
+          <End Role="instalaciones_tiene_horario" Type="Self.instalaciones_tiene_horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_instalacion">
+              <PropertyRef Name="idtipo" />
+            </Principal>
+            <Dependent Role="instalaciones_tiene_horario">
+              <PropertyRef Name="instalaciones_idinstalaciones" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_reserva_USUARIO1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="reserva" Type="Self.reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idusuario" />
+            </Principal>
+            <Dependent Role="reserva">
+              <PropertyRef Name="usuario_idusuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_USUARIO_rol1">
+          <End Role="rol" Type="Self.rol" Multiplicity="1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="idrol" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="rol_idrol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_socios_usuario1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="socios" Type="Self.socios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idusuario" />
+            </Principal>
+            <Dependent Role="socios">
+              <PropertyRef Name="usuario_idusuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rol_permisos">
+          <End Role="permisos" Type="Self.permisos" Multiplicity="*" />
+          <End Role="rol" Type="Self.rol" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="GestionPolideportivaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="dia" EntityType="Self.dia" />
+          <EntitySet Name="horario" EntityType="Self.horario" />
+          <EntitySet Name="instalacion" EntityType="Self.instalacion" />
+          <EntitySet Name="instalaciones_tiene_horario" EntityType="Self.instalaciones_tiene_horario" />
+          <EntitySet Name="permisos" EntityType="Self.permisos" />
+          <EntitySet Name="reserva" EntityType="Self.reserva" />
+          <EntitySet Name="rol" EntityType="Self.rol" />
+          <EntitySet Name="socios" EntityType="Self.socios" />
+          <EntitySet Name="tipo_instalacion" EntityType="Self.tipo_instalacion" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" />
+          <AssociationSet Name="fk_instalaciones_tiene_horario_dia1" Association="Self.fk_instalaciones_tiene_horario_dia1">
+            <End Role="dia" EntitySet="dia" />
+            <End Role="instalaciones_tiene_horario" EntitySet="instalaciones_tiene_horario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_instalaciones_has_horario_horario1" Association="Self.fk_instalaciones_has_horario_horario1">
+            <End Role="horario" EntitySet="horario" />
+            <End Role="instalaciones_tiene_horario" EntitySet="instalaciones_tiene_horario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PISTA_instalaciones1" Association="Self.fk_PISTA_instalaciones1">
+            <End Role="tipo_instalacion" EntitySet="tipo_instalacion" />
+            <End Role="instalacion" EntitySet="instalacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_reserva_PISTA1" Association="Self.fk_reserva_PISTA1">
+            <End Role="instalacion" EntitySet="instalacion" />
+            <End Role="reserva" EntitySet="reserva" />
+          </AssociationSet>
+          <AssociationSet Name="fk_instalaciones_has_horario_instalaciones1" Association="Self.fk_instalaciones_has_horario_instalaciones1">
+            <End Role="tipo_instalacion" EntitySet="tipo_instalacion" />
+            <End Role="instalaciones_tiene_horario" EntitySet="instalaciones_tiene_horario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_reserva_USUARIO1" Association="Self.fk_reserva_USUARIO1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="reserva" EntitySet="reserva" />
+          </AssociationSet>
+          <AssociationSet Name="fk_USUARIO_rol1" Association="Self.fk_USUARIO_rol1">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_socios_usuario1" Association="Self.fk_socios_usuario1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="socios" EntitySet="socios" />
+          </AssociationSet>
+          <AssociationSet Name="rol_permisos" Association="Self.rol_permisos">
+            <End Role="permisos" EntitySet="permisos" />
+            <End Role="rol" EntitySet="rol" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModeloGestionPolideportivaStoreContainer" CdmEntityContainer="GestionPolideportivaEntities">
+          <EntitySetMapping Name="dia">
+            <EntityTypeMapping TypeName="ModeloGestionPolideportiva.dia">
+              <MappingFragment StoreEntitySet="dia">
+                <ScalarProperty Name="iddia" ColumnName="iddia" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="horario">
+            <EntityTypeMapping TypeName="ModeloGestionPolideportiva.horario">
+              <MappingFragment StoreEntitySet="horario">
+                <ScalarProperty Name="idhorario" ColumnName="idhorario" />
+                <ScalarProperty Name="hora_inicio" ColumnName="hora_inicio" />
+                <ScalarProperty Name="hora_fin" ColumnName="hora_fin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="instalacion">
+            <EntityTypeMapping TypeName="ModeloGestionPolideportiva.instalacion">
+              <MappingFragment StoreEntitySet="instalacion">
+                <ScalarProperty Name="idinstalacion" ColumnName="idinstalacion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="insalacion_cerrada" ColumnName="insalacion_cerrada" />
+                <ScalarProperty Name="idtipo" ColumnName="idtipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="instalaciones_tiene_horario">
+            <EntityTypeMapping TypeName="ModeloGestionPolideportiva.instalaciones_tiene_horario">
+              <MappingFragment StoreEntitySet="instalaciones_tiene_horario">
+                <ScalarProperty Name="instalaciones_idinstalaciones" ColumnName="instalaciones_idinstalaciones" />
+                <ScalarProperty Name="dia_iddia" ColumnName="dia_iddia" />
+                <ScalarProperty Name="horario_idhorario" ColumnName="horario_idhorario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="permisos">
+            <EntityTypeMapping TypeName="ModeloGestionPolideportiva.permisos">
+              <MappingFragment StoreEntitySet="permisos">
+                <ScalarProperty Name="idpermisos" ColumnName="idpermisos" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reserva">
+            <EntityTypeMapping TypeName="ModeloGestionPolideportiva.reserva">
+              <MappingFragment StoreEntitySet="reserva">
+                <ScalarProperty Name="idreserva" ColumnName="idreserva" />
+                <ScalarProperty Name="fecha_reserva" ColumnName="fecha_reserva" />
+                <ScalarProperty Name="hora_inicio" ColumnName="hora_inicio" />
+                <ScalarProperty Name="hora_fin" ColumnName="hora_fin" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="no_presentado" ColumnName="no_presentado" />
+                <ScalarProperty Name="anulado" ColumnName="anulado" />
+                <ScalarProperty Name="pagado" ColumnName="pagado" />
+                <ScalarProperty Name="instalacion_idinstalacion" ColumnName="instalacion_idinstalacion" />
+                <ScalarProperty Name="usuario_idusuario" ColumnName="usuario_idusuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rol">
+            <EntityTypeMapping TypeName="ModeloGestionPolideportiva.rol">
+              <MappingFragment StoreEntitySet="rol">
+                <ScalarProperty Name="idrol" ColumnName="idrol" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="socios">
+            <EntityTypeMapping TypeName="ModeloGestionPolideportiva.socios">
+              <MappingFragment StoreEntitySet="socios">
+                <ScalarProperty Name="idsocios" ColumnName="idsocios" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="penalizado" ColumnName="penalizado" />
+                <ScalarProperty Name="fecha_fin_penalizacion" ColumnName="fecha_fin_penalizacion" />
+                <ScalarProperty Name="usuario_idusuario" ColumnName="usuario_idusuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipo_instalacion">
+            <EntityTypeMapping TypeName="ModeloGestionPolideportiva.tipo_instalacion">
+              <MappingFragment StoreEntitySet="tipo_instalacion">
+                <ScalarProperty Name="idtipo" ColumnName="idtipo" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="tiempo_max" ColumnName="tiempo_max" />
+                <ScalarProperty Name="precio_hora" ColumnName="precio_hora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="ModeloGestionPolideportiva.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="idusuario" ColumnName="idusuario" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="cuenta_bancaria" ColumnName="cuenta_bancaria" />
+                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+                <ScalarProperty Name="fecha_baja" ColumnName="fecha_baja" />
+                <ScalarProperty Name="rol_idrol" ColumnName="rol_idrol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="rol_permisos" TypeName="ModeloGestionPolideportiva.rol_permisos" StoreEntitySet="rol_permisos">
+            <EndProperty Name="permisos">
+              <ScalarProperty Name="idpermisos" ColumnName="permisos_idpermisos" />
+            </EndProperty>
+            <EndProperty Name="rol">
+              <ScalarProperty Name="idrol" ColumnName="rol_idrol" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

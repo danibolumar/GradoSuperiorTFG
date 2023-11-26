@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="PoliGest.FrontEnd.ControlUsuario.UCInstalaciones"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PoliGest.FrontEnd.ControlUsuario"
+             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel>
+
+        <TextBlock DockPanel.Dock="Top" x:Name="titulo" Text="Lista De Instalaciones" FontSize="20" FontStyle="Italic" FontStretch="UltraExpanded" FontWeight="UltraBold" HorizontalAlignment="Center" Margin="0,20,0,15"/>
+
+        <Grid DockPanel.Dock="Left" Width="200" Margin="20,30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <ComboBox x:Name="comboFiltroTipoInst"
+                      ItemsSource="{Binding listaTipoInstalaciones}" DisplayMemberPath="descripcion" SelectionChanged="comboFiltroTipoInst_SelectionChanged"
+                      SelectedItem="{Binding tipoInstalacionSeleccionado}" Style="{StaticResource MaterialDesignComboBox}"
+                      material:HintAssist.Hint="Selecciona un Tipo de instalacion" HorizontalAlignment="Center"/>
+
+            <TextBox x:Name="txtNombre" Grid.Row="1" Margin="0,20,0,0" SelectionChanged="txtNombre_SelectionChanged"
+                     Text="{Binding textoNombre, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Width="200" HorizontalAlignment="Center" material:HintAssist.Hint="Nombre Instalacion"/>
+
+            <Button x:Name="btnQuitarFiltro" Grid.Row="2" Content="QUITAR FILTRO" HorizontalAlignment="Center" 
+                    Style="{StaticResource MaterialDesignFlatButton}" Click="btnQuitarFiltro_Click" Margin="0,20,0,0"/>
+            
+        </Grid>
+
+        <Grid>
+            <DataGrid AutoGenerateColumns="False" ColumnWidth="*" CanUserAddRows="False"
+                      ItemsSource="{Binding listaInstalaciones}" x:Name="dgListaInstalacion"  MouseDoubleClick="dgListaInstalacion_MouseDoubleClick">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="NOMBRE" Binding="{Binding nombre}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="TIPO DE INSTALACION" Binding="{Binding tipo_instalacion.descripcion}" IsReadOnly="True"/>
+                    <DataGridTemplateColumn Header="CERRADA" IsReadOnly="True" x:Name="noPresentCheck">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding insalacion_cerrada}" IsEnabled="False" HorizontalAlignment="Left"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+                
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+</UserControl>

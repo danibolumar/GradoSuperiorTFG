@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9e75cdec9e324fc1bfc645fe48ed81fc" Name="Diagram1">
+        <EntityTypeShape EntityType="ModeloGestionPolideportiva.dia" Width="1.5" PointX="6" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloGestionPolideportiva.horario" Width="1.5" PointX="6" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloGestionPolideportiva.instalacion" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloGestionPolideportiva.instalaciones_tiene_horario" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloGestionPolideportiva.permisos" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloGestionPolideportiva.reserva" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloGestionPolideportiva.rol" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloGestionPolideportiva.socios" Width="1.5" PointX="7.5" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloGestionPolideportiva.tipo_instalacion" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloGestionPolideportiva.usuario" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="ModeloGestionPolideportiva.fk_instalaciones_tiene_horario_dia1" ManuallyRouted="false" />
+        <AssociationConnector Association="ModeloGestionPolideportiva.fk_instalaciones_has_horario_horario1" ManuallyRouted="false" />
+        <AssociationConnector Association="ModeloGestionPolideportiva.fk_PISTA_instalaciones1" ManuallyRouted="false" />
+        <AssociationConnector Association="ModeloGestionPolideportiva.fk_reserva_PISTA1" ManuallyRouted="false" />
+        <AssociationConnector Association="ModeloGestionPolideportiva.fk_instalaciones_has_horario_instalaciones1" ManuallyRouted="false" />
+        <AssociationConnector Association="ModeloGestionPolideportiva.fk_reserva_USUARIO1" ManuallyRouted="false" />
+        <AssociationConnector Association="ModeloGestionPolideportiva.fk_USUARIO_rol1" ManuallyRouted="false" />
+        <AssociationConnector Association="ModeloGestionPolideportiva.fk_socios_usuario1" ManuallyRouted="false" />
+        <AssociationConnector Association="ModeloGestionPolideportiva.rol_permisos" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

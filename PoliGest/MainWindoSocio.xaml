@@ -1,0 +1,39 @@
+﻿<mah:MetroWindow x:Class="PoliGest.MainWindoSocio"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:PoliGest"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        Title="PoliGest" Height="450" Width="800">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Left" Background="#4C4C4C" Width="200" HorizontalAlignment="Left">
+            <Grid>
+                <ListBoxItem Content="Bienvenido!" HorizontalAlignment="Center" FontSize="20" FontStyle="Italic" FontStretch="UltraExpanded" FontWeight="UltraBold" Style="{StaticResource MaterialDesignListBoxItem}" Foreground="#6BD9F9"/>
+            </Grid>
+            <Grid>
+                <Expander Header="Reservas" x:Name="ExpanderReserva" IsExpanded="False" FontSize="20" FontStyle="Italic" FontWeight="UltraBold" Style="{StaticResource MaterialDesignExpander}" Background="{x:Null}" Foreground="#6BD9F9">
+                    <ListView x:Name="listViewReservas" Foreground="#6BD9F9" Style="{StaticResource MaterialDesignListView}">
+                        <ListViewItem Content="Mis Reservas" Padding="30 5" x:Name="misReservas" MouseDoubleClick="misReservas_MouseDoubleClick"/>
+                        <ListViewItem Content="Reservas Activas" Padding="30 5" x:Name="reservasActivas" MouseDoubleClick="reservasActivas_MouseDoubleClick"/>
+                        <ListViewItem Content="Realizar Reserva" Padding="30 5" x:Name="realizarReservas" MouseDoubleClick="realizarReservas_MouseDoubleClick"/>
+                    </ListView>
+                </Expander>
+            </Grid>
+            <Grid>
+                <Expander Header="Configuracion" x:Name="ExpanderConfiguracion" IsExpanded="False" FontSize="20" FontStyle="Italic" FontWeight="UltraBold" Style="{StaticResource MaterialDesignExpander}" Background="{x:Null}" Foreground="#6BD9F9">
+                    <ListView x:Name="listViewConfiguracion" Foreground="#6BD9F9" Style="{StaticResource MaterialDesignListView}">
+                        <ListViewItem Content="Mi Perfil" Padding="30 5" x:Name="miPerfil" MouseDoubleClick="miPerfil_MouseDoubleClick"/>
+                        <ListViewItem Content="Cerrar Sesion" x:Name="cerrarSesion" Padding="30 5" MouseDoubleClick="cerrarSesion_MouseDoubleClick"/>
+                    </ListView>
+                </Expander>
+            </Grid>
+        </StackPanel>
+        <Grid x:Name="gridCentral">
+            
+        </Grid>
+    </DockPanel>
+</mah:MetroWindow >

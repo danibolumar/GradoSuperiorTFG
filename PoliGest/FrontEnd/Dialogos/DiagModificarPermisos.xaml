@@ -1,0 +1,106 @@
+﻿<mah:MetroWindow x:Class="PoliGest.FrontEnd.Dialogos.DiagModificarPermisos"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PoliGest.FrontEnd.Dialogos"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        ShowMaxRestoreButton="False"
+        ShowTitleBar="False"
+        mc:Ignorable="d"
+        SizeToContent="Height"
+        Title="DiagModificarPermisos" Width="700">
+    <DockPanel Margin="20">
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Modificar Roles y Permisos" x:Name="titulo" Grid.ColumnSpan="2" FontSize="20" FontStyle="Italic" FontStretch="UltraExpanded" FontWeight="UltraBold" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+
+            <ComboBox x:Name="comboFiltroRol" Grid.Row="1"
+                      ItemsSource="{Binding listaRol}" DisplayMemberPath="nombre" SelectionChanged="comboFiltroRol_SelectionChanged"
+                      SelectedItem="{Binding rolSeleccionado}" Style="{StaticResource MaterialDesignComboBox}"
+                      material:HintAssist.Hint="Selecciona un rol" HorizontalAlignment="Left"/>
+            
+        </Grid>
+        <StackPanel Orientation="Vertical">
+        <Grid Margin="0,15,0,0" Visibility="Visible"  x:Name="gridDataGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <DataGrid AutoGenerateColumns="False" ColumnWidth="Auto" CanUserAddRows="False"
+                      ItemsSource="{Binding listaPermisosIn}" HorizontalAlignment="Left"
+                      x:Name="dgTablaPermisoIn" Height="300" Width="250" BorderThickness="1">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="PERMISOS SELECCIONADOS" Binding="{Binding descripcion}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Orientation="Vertical" Margin="15,0,15,0" HorizontalAlignment="Center"  VerticalAlignment="Center">
+                <Button x:Name="quitarPerm"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="quitarPerm_Click"
+                    ToolTip="Quitar Permiso" Content=">"/>
+                
+
+
+                <Button x:Name="añadirPerm"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="añadirPerm_Click"
+                    ToolTip="Añadir Permiso" Content="&lt;"/>
+
+                <Separator Margin="0,5,0,5"/>
+
+                <Button x:Name="quitarTodosPerm"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="quitarTodosPerm_Click"
+                    ToolTip="Eliminar todos Permisos" Content=">>"/>
+
+
+
+                    <Button x:Name="añadirTodosPerm"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="añadirTodosPerm_Click"
+                    ToolTip="Añadir todos Permisos" Content="&lt; &lt;"/>
+
+            </StackPanel>
+
+            <DataGrid AutoGenerateColumns="False" ColumnWidth="Auto" CanUserAddRows="False"
+                      ItemsSource="{Binding listaPermisosOut}" HorizontalAlignment="Right"
+                      x:Name="dgTablaPermisoOut" Height="300" Width="250" BorderThickness="1">
+
+                <DataGrid.Columns >
+                    <DataGridTextColumn Header="PERMISOS DESELECCIONADOS" Binding="{Binding descripcion}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+
+                </DataGrid>
+            
+            <WrapPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right" Margin="0,20,20,10" x:Name="btnsNU">
+                <Button x:Name="aceptarMR" Content="GUARDAR" Click="aceptarMR_Click" Background="LightBlue" Width="200" />
+                <Button x:Name="btnCancelar" Content="CERRAR" Click="btnCancelar_Click" Margin="20,0,0,0" Background="DarkGray" Width="200"/>
+            </WrapPanel>
+        </Grid>
+
+            <TextBlock Text="Eliminar Permiso" x:Name="quitarPermiso" Grid.ColumnSpan="2" FontSize="20" FontStyle="Italic" FontStretch="UltraExpanded" FontWeight="UltraBold" HorizontalAlignment="Center" Margin="0,30,0,0"/>
+
+            <ComboBox x:Name="comboFiltroPermiso"
+                      ItemsSource="{Binding listaPermisos}" DisplayMemberPath="descripcion" SelectionChanged="comboFiltroPermiso_SelectionChanged"
+                      SelectedItem="{Binding permisosSeleccionado}" Style="{StaticResource MaterialDesignComboBox}"
+                      material:HintAssist.Hint="Selecciona un Permiso" HorizontalAlignment="Left"/>
+
+            <Button x:Name="btnEliminarPermiso" Content="ELIMINAR Permiso" Click="btnEliminarPermiso_Click" Margin="0,20,20,10" HorizontalAlignment="Left" Background="DarkGray" Width="200" Visibility="Collapsed"/>
+        </StackPanel>
+    </DockPanel>
+</mah:MetroWindow>
